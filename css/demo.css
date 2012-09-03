@@ -1,0 +1,142 @@
+@import url('normalize.css');
+/* General Demo Style */
+body{
+	font-family: 'Open Sans Condensed','Arial Narrow', serif;
+	background: #ddd url(../images/bg.jpg) repeat top left;
+	font-weight: 400;
+	font-size: 15px;
+	color: #333;
+	-webkit-font-smoothing: antialiased;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+a, a:hover, a:active, a:focus{
+	color: #555;
+	text-decoration: none;
+	outline: none;
+}
+.container{
+	width: 100%;
+	position: relative;
+}
+.clr{
+	clear: both;
+	padding: 0;
+	height: 0;
+	margin: 0;
+}
+.main{
+	width: 90%;
+	margin: 0 auto;
+	position: relative;
+}
+.container > header{
+	margin: 10px;
+	padding: 20px 10px 10px 10px;
+	position: relative;
+	display: block;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+    text-align: center;
+}
+.container > header h1{
+	font-size: 36px;
+	line-height: 36px;
+	margin: 0;
+	position: relative;
+	font-weight: 300;
+	color: #666;
+	text-shadow: 1px 1px 1px rgba(255,255,255,0.7);
+}
+.container > header h2{
+	font-size: 14px;
+	font-weight: 300;
+	margin: 0;
+	padding: 15px 0 5px 0;
+	color: #888;
+	font-family: Cambria, Georgia, serif;
+	font-style: italic;
+	text-shadow: 1px 1px 1px rgba(255,255,255,0.9);
+}
+/* Header Style */
+.codrops-top{
+	line-height: 24px;
+	font-size: 11px;
+	background: #fff;
+	background: rgba(255, 255, 255, 0.5);
+	text-transform: uppercase;
+	z-index: 9999;
+	position: relative;
+	font-family: Cambria, Georgia, serif;
+	box-shadow: 1px 0px 2px rgba(0,0,0,0.2);
+}
+.codrops-top a{
+	padding: 0px 10px;
+	letter-spacing: 1px;
+	color: #333;
+	display: inline-block;
+}
+.codrops-top a:hover{
+	background: rgba(255,255,255,0.6);
+}
+.codrops-top span.right{
+	float: right;
+}
+.codrops-top span.right a{
+	float: left;
+	display: block;
+}
+/* Demo Buttons Style */
+.codrops-demos{
+    text-align:center;
+	display: block;
+	line-height: 30px;
+	padding: 5px 0px;
+}
+.codrops-demos a{
+    display: inline-block;
+	margin: 0px 4px;
+	padding: 0px 6px;
+	color: #aaa;
+	line-height: 20px;	
+	font-size: 13px;
+	text-shadow: 1px 1px 1px #fff;
+	border: 1px solid #fff;
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#f6f6f6), color-stop(100%,#ededed)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* IE10+ */
+	background: linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.codrops-demos a:hover{
+	color: #333;
+	background: #fff;
+}
+.codrops-demos a:active{
+	background: #fff;
+}
+.codrops-demos a.current-demo,
+.codrops-demos a.current-demo:hover{
+	background: #f0f0f0;
+	border-color: #d9d9d9;
+	color: #aaa;
+	box-shadow: 0 1px 1px rgba(255,255,255,0.7);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
+}
+.support-note span{
+	color: #ac375d;
+	font-size: 16px;
+	display: none;
+	font-weight: bold;
+	text-align: center;
+	padding: 5px 0;
+}
+.no-cssanimations .support-note span.no-cssanimations,
+.no-csstransforms .support-note span.no-csstransforms,
+.no-csstransforms3d .support-note span.no-csstransforms3d,
+.no-csstransitions .support-note span.no-csstransitions{
+	display: block;
+}

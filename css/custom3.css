@@ -1,0 +1,227 @@
+.bb-custom-wrapper {
+	background: rgba(255,255,255,0.1);
+	width: 700px;
+	height: 500px;
+	position: relative;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	margin: 40px auto;
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+	font-family: "Montserrat", Arial;
+}
+
+.bb-bookblock {
+	width: 700px;
+	height: 500px;
+}
+
+.bb-custom-content {
+	text-align: center;
+	background: #f4f2e5 url(../images/demo3/paper.jpg) bottom center;
+	width: 100%;
+	height: 100%;
+}
+
+.bb-custom-bg {
+	background-image: url(../images/demo3/faces.jpg);
+}
+
+.bb-custom-content h3 {
+	text-indent: 30px;
+	letter-spacing: 30px;
+	line-height: 96px;
+	padding: 20px;
+	color: #AED1D8;
+	font-size: 30px;
+	display: block;
+	text-transform: uppercase;
+	position: relative;
+	background: rgba(84, 201, 234, 0.3);
+	margin: 0;
+	text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.bb-custom-content h3:before,
+.bb-custom-content h3:after {
+	content: '';
+	position: absolute;
+	height: 10px;
+	border-top: 2px dotted rgba(0,0,0,0.05);
+	box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
+	bottom: 0px;
+	left: 10px;
+	right: 10px;
+}
+.bb-custom-content h3:before {
+	bottom: auto;
+	top: 10px;
+}
+
+.bb-custom-content p, 
+.bb-custom-content h4 span,
+.bb-bookblock .folder-cover span{
+	font-family: Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif;
+	font-style: italic;
+	font-size: 24px;
+	display: block;
+	color: #454545;
+	text-shadow: 0 1px 1px #fff;
+	margin: 0;
+}
+
+.bb-custom-content p {
+	padding: 22px;
+}
+
+.bb-custom-content h4 {
+	font-size: 28px;
+	line-height: 36px;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	margin: 0;
+}
+
+.bb-custom-content h4 span {
+	font-size: 50px;
+	color: #bdbaa7;
+	font-weight: 400;
+	line-height: 60px;
+}
+
+nav.bb-custom-nav  {
+	width: 85px;
+	margin: 20px auto 0;
+}
+
+nav.bb-custom-nav a {
+	float: right;
+	width: 40px;
+	height: 40px;
+	background: url(../images/nav.png) center right;
+	text-indent: -90000px;
+}
+
+nav.bb-custom-nav a:first-child {
+	background-position: center left;
+	margin-right: 5px;
+	float: left;
+}
+
+
+.bb-bookblock .folder {
+	width : 50%;
+	height: 100%;
+	position: relative;
+	-webkit-perspective: 800px;
+	-moz-perspective: 800px;
+	-o-perspective: 800px;
+	-ms-perspective: 800px;
+	perspective: 800px;
+	
+}
+
+.bb-bookblock .folder-cover, 
+.bb-bookblock .folder-inner {
+	position: absolute;
+	width: 330px;
+	top: 10px;
+	left: 10px;
+	bottom: 10px;
+	z-index: 3;
+}
+
+.bb-bookblock .folder-cover {
+	background: #f7f7f7;
+	background: -moz-linear-gradient(left, #f7f7f7 0%, #ffffff 12%, #ededed 100%);
+	background: -webkit-linear-gradient(left, #f7f7f7 0%,#ffffff 12%,#ededed 100%);
+	background: -o-linear-gradient(left, #f7f7f7 0%,#ffffff 12%,#ededed 100%);
+	background: -ms-linear-gradient(left, #f7f7f7 0%,#ffffff 12%,#ededed 100%);
+	background: linear-gradient(to right, #f7f7f7 0%,#ffffff 12%,#ededed 100%);
+	box-shadow: 
+		inset -2px 0 5px rgba(255,255,255,0.4), 
+		1px 1px 3px rgba(0,0,0,0.2), 
+		2px 0 3px rgba(0,0,0,0.2);
+}
+
+.bb-bookblock .folder-inner {
+	top: 20px;
+	height: 460px;
+	padding-top: 130px;
+	background: url(../images/demo3/paper_blue.jpg) center center;
+	box-shadow:  
+		inset 0 -2px 2px rgba(255,255,255,0.4), 
+		inset 0 2px 2px rgba(255,255,255,0.2), 
+		1px 0 2px rgba(0,0,0,0.1);
+	z-index: 2;
+	-webkit-transition: -webkit-transform 300ms ease-in-out;
+	-moz-transition: -moz-transform 300ms ease-in-out;
+	-o-transition: -o-transform 300ms ease-in-out;
+	-ms-transition: -ms-transform 300ms ease-in-out;
+	transition: transform 300ms ease-in-out;
+}
+
+.bb-bookblock .folder-fold {
+	background: #ffffff;
+	background: -moz-linear-gradient(left, #ffffff 0%, #f2f2f2 4%, #ffffff 88%, #f7f7f7 100%);
+	background: -webkit-linear-gradient(left, #ffffff 0%,#f2f2f2 4%,#ffffff 88%,#f7f7f7 100%);
+	background: -o-linear-gradient(left, #ffffff 0%,#f2f2f2 4%,#ffffff 88%,#f7f7f7 100%);
+	background: -ms-linear-gradient(left, #ffffff 0%,#f2f2f2 4%,#ffffff 88%,#f7f7f7 100%);
+	background: linear-gradient(to right, #ffffff 0%,#f2f2f2 4%,#ffffff 88%,#f7f7f7 100%);
+	position: absolute;
+	right: 10px;
+	width: 60px;
+	top: 10px;
+	bottom: 10px;
+	z-index: 4;
+	-webkit-transform-origin: 100% 50%;
+	-moz-transform-origin: 100% 50%;
+	-o-transform-origin: 100% 50%;
+	-ms-transform-origin: 100% 50%;
+	transform-origin: 100% 50%;
+}
+
+.bb-bookblock .folder-cover span {
+	cursor: pointer;
+	margin: 220px 0 0 50px;
+	display: block;
+	background: rgba(255,255,255,0.4);
+	text-align: left;
+	font-size: 16px;
+	padding: 10px 0 10px 30px;
+	border-radius: 10px 0 0 10px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,0.05);
+	border: 1px solid rgba(255,255,255,0.2);
+	border-right: none;
+}
+
+#folder-close {
+	color: #333;
+	font-size: 12px;
+	text-transform: uppercase;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+}
+
+.bb-custom-last {
+	height: 100%;
+	padding-top: 110px;
+	box-shadow: 
+		inset 0 100px 0 rgba(231, 152, 213, 0.1), 
+		inset 0 -100px 0 rgba(231, 152, 213, 0.1);
+}
+
+.bb-custom-circle {
+	width: 200px;
+	height: 200px;
+	position: absolute;
+	top: 50%;
+	right: 80px;
+	margin-top: -100px;
+	border-radius: 50%;
+	box-shadow: 0 0 0 15px rgba(84, 201, 234, 0.3);
+	background: url(../images/demo3/faces.jpg) -288px -210px;
+	z-index: 0;
+}
