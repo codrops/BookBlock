@@ -111,14 +111,14 @@
 				var Page = (function() {
 
 					var config		= {
-							$bookBlock			: $( '#bb-bookblock' ),
-							$navNext			: $( '#bb-nav-next' ),
-							$navPrev			: $( '#bb-nav-prev' ),
-							$navJump			: $( '#bb-nav-jump' ),
-							$folder				: $( '#folder' ),
-							$folderOpen			: $( '#folder > div.folder-cover > span' ),
-							$folderClose		: $( '#folder > div.folder-inner > a' ),
-							transEndEventNames	: {
+							$bookBlock			:	$( '#bb-bookblock' ),
+							$navNext			:	$( '#bb-nav-next' ),
+							$navPrev			:	$( '#bb-nav-prev' ),
+							$navJump			:	$( '#bb-nav-jump' ),
+							$folder				:	$( '#folder' ),
+							$folderOpen			:	$( '#folder > div.folder-cover > span' ),
+							$folderClose		:	$( '#folder > div.folder-inner > a' ),
+							transEndEventNames	:	{
 								'WebkitTransition'	: 'webkitTransitionEnd',
 								'MozTransition'		: 'transitionend',
 								'OTransition'		: 'oTransitionEnd',
@@ -126,14 +126,14 @@
 								'transition'		: 'transitionend'
 							},
 							// init bookBlock!
-							bb					: $( '#bb-bookblock' ).bookblock( {
+							bb					:	$( '#bb-bookblock' ).bookblock( {
 								speed 		: 700,
 								easing		: 'ease-out',
 								perspective	: 1500,
 								shadowSides	: 0.8,
 								shadowFlip	: 0.7
 							} ),
-							transitionProperty	: {
+							transitionProperty	:	{
 								'-webkit-transition': '-webkit-transform 300ms ease-in-out',
 								'-moz-transition': '-moz-transform 300ms ease-in-out',
 								'-o-transition': '-o-transform 300ms ease-in-out',
@@ -210,7 +210,7 @@
 							// folder
 							config.$folderOpen.on( 'click', function() {
 								
-								var $folder = $( this ).closest( 'div.folder' ),
+								var $folder	= $( this ).closest( 'div.folder' ),
 									open	= $folder.data( 'isOpen' );
 
 								if( config.bb.isActive() ) return false;
@@ -227,7 +227,7 @@
 
 							config.$folderClose.on( 'click', function() {
 								
-								var $folder = $( this ).closest( 'div.folder' ),
+								var $folder	= $( this ).closest( 'div.folder' ),
 									open	= $folder.data( 'isOpen' );
 
 								if( config.bb.isActive() ) return false;
