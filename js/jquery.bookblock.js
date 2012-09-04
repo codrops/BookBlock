@@ -14,9 +14,9 @@
 	'use strict';
 
 	// global
-	var Modernizr	= window.Modernizr;
+	var Modernizr = window.Modernizr;
 
-	$.BookBlock	= function( options, element ) {
+	$.BookBlock = function( options, element ) {
 		
 		this.$el = $( element );
 		this._init( options );
@@ -24,7 +24,7 @@
 	};
 
 	// the options
-	$.BookBlock.defaults	= {
+	$.BookBlock.defaults = {
 		// speed for the flip transition in ms.
 		speed		: 1000,
 		// easing for the flip transition.
@@ -54,26 +54,26 @@
 		onBeforeFlip: function( page ) { return false; }
 	};
 
-	$.BookBlock.prototype	= {
+	$.BookBlock.prototype = {
 
-		_init	: function( options ) {
+		_init : function( options ) {
 			
 			// options.
-			this.options	= $.extend( true, {}, $.BookBlock.defaults, options );
+			this.options = $.extend( true, {}, $.BookBlock.defaults, options );
 			// set the perspective
 			this.$el.css( 'perspective', this.options.perspective );
 			// items.
-			this.$items		= this.$el.children( '.bb-item' );
+			this.$items = this.$el.children( '.bb-item' );
 			// total items.
-			this.itemsCount	= this.$items.length;
+			this.itemsCount = this.$items.length;
 			// current item.
-			this.current	= 0;
+			this.current = 0;
 			// show first item.
-			this.$current	= this.$items.eq( this.current );
+			this.$current = this.$items.eq( this.current );
 			this.$current.show();
 			// get width of this.$el
 			// this will be necessary to create the flipping layout.
-			this.elWidth	= this.$el.width();
+			this.elWidth = this.$el.width();
 			// https://github.com/twitter/bootstrap/issues/2870.
 			var transEndEventNames = {
 				'WebkitTransition'	: 'webkitTransitionEnd',
@@ -82,14 +82,14 @@
 				'msTransition'		: 'MSTransitionEnd',
 				'transition'		: 'transitionend'
 			};
-			this.transEndEventName	= transEndEventNames[ Modernizr.prefixed( 'transition' ) ];
+			this.transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ];
 			// support (3dtransforms && transitions).
-			this.support	= Modernizr.csstransitions && Modernizr.csstransforms3d;
+			this.support = Modernizr.csstransitions && Modernizr.csstransforms3d;
 
 			this._initEvents();
 
 		},
-		_initEvents	: function() {
+		_initEvents : function() {
 
 			var self = this;
 
@@ -117,19 +117,19 @@
 
 		},
 		// public method: flips next
-		next	: function() {
+		next : function() {
 
 			this._navigate( 'next' );
 
 		},
 		// public method: flips back
-		prev	: function() {
+		prev : function() {
 
 			this._navigate( 'prev' );
 
 		},
 		// public method: goes to a specific page.
-		jump	: function( page ) {
+		jump : function( page ) {
 
 			page -= 1;
 
@@ -143,12 +143,12 @@
 
 		},
 		// public method: check if isAnimating is true
-		isActive	: function() {
+		isActive : function() {
 
 			return this.isAnimating;
 
 		},
-		_navigate	: function( dir, page ) {
+		_navigate : function( dir, page ) {
 
 			if( this.isAnimating ) {
 
@@ -159,8 +159,8 @@
 			// callback trigger
 			this.options.onBeforeFlip( this.current );
 
-			this.isAnimating	= true;
-			this.$current		= this.$items.eq( this.current );
+			this.isAnimating = true;
+			this.$current = this.$items.eq( this.current );
 
 			if( page !== undefined ) {
 
@@ -220,38 +220,38 @@
 
 		},
 		// with no support we consider no 3d transforms and transitions
-		_layoutNoSupport	: function( dir ) {
+		_layoutNoSupport : function( dir ) {
 
 			this.$items.hide();
 
 			this.$nextItem.show();
 
-			this.end			= false;
-			this.isAnimating	= false;
+			this.end = false;
+			this.isAnimating = false;
 
-			var isLimit			= dir === 'next' && this.current === this.itemsCount - 1 || dir === 'prev' && this.current === 0;
+			var isLimit	= dir === 'next' && this.current === this.itemsCount - 1 || dir === 'prev' && this.current === 0;
 			// callback trigger
 			this.options.onEndFlip( this.current, isLimit );
 
 		},
 		// creates the necessary layout for the 3d animation, and triggers the transitions
-		_layout	: function( dir ) {
+		_layout : function( dir ) {
 
-			var self		= this,
+			var self = this,
 
 				// basic structure:
 				// 1 element for the left side.
-				$s_left		= this._addSide( 'left', dir ),
+				$s_left = this._addSide( 'left', dir ),
 				// 1 element for the flipping/middle page
-				$s_middle	= this._addSide( 'middle', dir ),
+				$s_middle = this._addSide( 'middle', dir ),
 				// 1 element for the right side
-				$s_right	= this._addSide( 'right', dir ),
+				$s_right = this._addSide( 'right', dir ),
 				// overlays
-				$o_left		= $s_left.find( 'div.bb-overlay' ),
-				$o_middle_f	= $s_middle.find( 'div.bb-flipoverlay:first' ),
-				$o_middle_b	= $s_middle.find( 'div.bb-flipoverlay:last' ),
-				$o_right	= $s_right.find( 'div.bb-overlay' ),
-				speed		= this.options.speed;
+				$o_left = $s_left.find( 'div.bb-overlay' ),
+				$o_middle_f = $s_middle.find( 'div.bb-flipoverlay:first' ),
+				$o_middle_b = $s_middle.find( 'div.bb-flipoverlay:last' ),
+				$o_right = $s_right.find( 'div.bb-overlay' ),
+				speed = this.options.speed;
 
 			this.$items.hide();
 			this.$el.prepend( $s_left, $s_middle, $s_right );
@@ -271,10 +271,10 @@
 					self.$el.children( 'div.bb-page' ).remove();
 					self.$nextItem.show();
 
-					self.end			= false;
-					self.isAnimating	= false;
+					self.end = false;
+					self.isAnimating = false;
 
-					var isLimit			= dir === 'next' && self.current === self.itemsCount - 1 || dir === 'prev' && self.current === 0;
+					var isLimit = dir === 'next' && self.current === self.itemsCount - 1 || dir === 'prev' && self.current === 0;
 					
 					// callback trigger
 					self.options.onEndFlip( self.current, isLimit );
@@ -294,10 +294,10 @@
 			// overlays
 			if( this.options.shadows && !this.end ) {
 
-				var o_left_style		= ( dir === 'next' ) ? { transition	: 'opacity ' + this.options.speed / 2 + 'ms ' + 'linear' + ' ' + this.options.speed / 2 + 'ms' } : { transition	: 'opacity ' + this.options.speed / 2 + 'ms ' + 'linear', opacity	: this.options.shadowSides },
-					o_middle_f_style	= ( dir === 'next' ) ? { transition	: 'opacity ' + this.options.speed / 2 + 'ms ' + 'linear' } : { transition	: 'opacity ' + this.options.speed / 2 + 'ms ' + 'linear' + ' ' + this.options.speed / 2 + 'ms', opacity	: this.options.shadowFlip },
-					o_middle_b_style	= ( dir === 'next' ) ? { transition	: 'opacity ' + this.options.speed / 2 + 'ms ' + 'linear' + ' ' + this.options.speed / 2 + 'ms', opacity : this.options.shadowFlip } : { transition	: 'opacity ' + this.options.speed / 2 + 'ms ' + 'linear' },
-					o_right_style		= ( dir === 'next' ) ? { transition	: 'opacity ' + this.options.speed / 2 + 'ms ' + 'linear', opacity : this.options.shadowSides } : { transition	: 'opacity ' + this.options.speed / 2 + 'ms ' + 'linear' + ' ' + this.options.speed / 2 + 'ms' };
+				var o_left_style = ( dir === 'next' ) ? { transition	: 'opacity ' + this.options.speed / 2 + 'ms ' + 'linear' + ' ' + this.options.speed / 2 + 'ms' } : { transition	: 'opacity ' + this.options.speed / 2 + 'ms ' + 'linear', opacity	: this.options.shadowSides },
+					o_middle_f_style = ( dir === 'next' ) ? { transition	: 'opacity ' + this.options.speed / 2 + 'ms ' + 'linear' } : { transition	: 'opacity ' + this.options.speed / 2 + 'ms ' + 'linear' + ' ' + this.options.speed / 2 + 'ms', opacity	: this.options.shadowFlip },
+					o_middle_b_style = ( dir === 'next' ) ? { transition	: 'opacity ' + this.options.speed / 2 + 'ms ' + 'linear' + ' ' + this.options.speed / 2 + 'ms', opacity : this.options.shadowFlip } : { transition	: 'opacity ' + this.options.speed / 2 + 'ms ' + 'linear' },
+					o_right_style = ( dir === 'next' ) ? { transition	: 'opacity ' + this.options.speed / 2 + 'ms ' + 'linear', opacity : this.options.shadowSides } : { transition	: 'opacity ' + this.options.speed / 2 + 'ms ' + 'linear' + ' ' + this.options.speed / 2 + 'ms' };
 
 				$o_middle_f.css( o_middle_f_style );
 				$o_middle_b.css( o_middle_b_style );
@@ -347,13 +347,13 @@
 
 		},
 		// adds the necessary sides (bb-page) to the layout 
-		_addSide	: function( side, dir ) {
+		_addSide : function( side, dir ) {
 
 			var $side;
 
 			switch( side ) {
 
-				case 'left'		:
+				case 'left' :
 					/*
 					<div class="bb-page" style="z-index:2;">
 						<div class="bb-back">
@@ -371,7 +371,7 @@
 					$side = $( '<div class="bb-page"><div class="bb-back"><div class="bb-outer"><div class="bb-content" style="width:' + this.elWidth + 'px"><div class="bb-inner">' + ( dir==='next' ? this.$current.html() : this.$nextItem.html() ) + '</div></div><div class="bb-overlay"></div></div></div></div>' ).css( 'z-index', 102 );
 					break;
 				
-				case 'middle'	:
+				case 'middle' :
 					/*
 					<div class="bb-page" style="z-index:3;">
 						<div class="bb-front">
@@ -399,7 +399,7 @@
 					$side = $( '<div class="bb-page"><div class="bb-front"><div class="bb-outer"><div class="bb-content" style="left:' + ( - this.elWidth / 2 ) + 'px;width:' + this.elWidth + 'px"><div class="bb-inner">' + ( dir==='next' ? this.$current.html() : this.$nextItem.html() ) + '</div></div><div class="bb-flipoverlay"></div></div></div><div class="bb-back"><div class="bb-outer"><div class="bb-content" style="width:' + this.elWidth + 'px"><div class="bb-inner">' + ( dir==='next' ? this.$nextItem.html() : this.$current.html() ) + '</div></div><div class="bb-flipoverlay"></div></div></div></div>' ).css( 'z-index', 103 );
 					break;
 				
-				case 'right'	:
+				case 'right' :
 					/*
 					<div class="bb-page" style="z-index:1;">
 						<div class="bb-front">
@@ -425,7 +425,7 @@
 
 	};
 	
-	var logError	= function( message ) {
+	var logError = function( message ) {
 
 		if ( window.console ) {
 
@@ -435,7 +435,7 @@
 
 	};
 	
-	$.fn.bookblock	= function( options ) {
+	$.fn.bookblock = function( options ) {
 
 		var instance = $.data( this, 'bookblock' );
 		
