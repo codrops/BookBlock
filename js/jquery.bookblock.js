@@ -229,7 +229,7 @@
 			this.end = false;
 			this.isAnimating = false;
 
-			var isLimit	= dir === 'next' && this.current === this.itemsCount - 1 || dir === 'prev' && this.current === 0;
+			var isLimit = dir === 'next' && this.current === this.itemsCount - 1 || dir === 'prev' && this.current === 0;
 			// callback trigger
 			this.options.onEndFlip( this.current, isLimit );
 
