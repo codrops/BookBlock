@@ -91,26 +91,26 @@
 
 				var Page = (function() {
 
-					var config		= {
-							$bookBlock			: $( '#bb-bookblock' ),
-							$navNext			: $( '#bb-nav-next' ),
-							$navPrev			: $( '#bb-nav-prev' ),
-							$navJump			: $( '#bb-nav-jump' ),
-							bb					: $( '#bb-bookblock' ).bookblock( {
-								speed 		: 800,
+					var config = {
+							$bookBlock: $( '#bb-bookblock' ),
+							$navNext	: $( '#bb-nav-next' ),
+							$navPrev	: $( '#bb-nav-prev' ),
+							$navJump	: $( '#bb-nav-jump' ),
+							bb				: $( '#bb-bookblock' ).bookblock( {
+								speed				: 800,
 								shadowSides	: 0.8,
 								shadowFlip	: 0.7
 							} )
 						},
-						init		= function() {
+						init = function() {
 
 							initEvents();
 							
 						},
-						initEvents	= function() {
+						initEvents = function() {
 
-							var $slides		= config.$bookBlock.children(),
-								totalSlides	= $slides.length;
+							var $slides = config.$bookBlock.children(),
+									totalSlides = $slides.length;
 
 							// add navigation events
 							config.$navNext.on( 'click', function() {
@@ -137,13 +137,13 @@
 							// add swipe events
 							$slides.on( {
 
-								'swipeleft' : function( event ) {
+								'swipeleft'		: function( event ) {
 								
 									config.bb.next();
 									return false;
 
 								},
-								'swiperight' : function( event ) {
+								'swiperight'	: function( event ) {
 								
 									config.bb.prev();
 									return false;

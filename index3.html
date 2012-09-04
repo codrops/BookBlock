@@ -110,41 +110,41 @@
 			
 				var Page = (function() {
 
-					var config		= {
-							$bookBlock			:	$( '#bb-bookblock' ),
+					var config = {
+							$bookBlock		:	$( '#bb-bookblock' ),
 							$navNext			:	$( '#bb-nav-next' ),
 							$navPrev			:	$( '#bb-nav-prev' ),
 							$folder				:	$( '#folder' ),
-							$folderOpen			:	$( '#folder > div.folder-cover > span' ),
-							$folderClose		:	$( '#folder > div.folder-inner > a' ),
+							$folderOpen		:	$( '#folder > div.folder-cover > span' ),
+							$folderClose	:	$( '#folder > div.folder-inner > a' ),
 							transEndEventNames	:	{
 								'WebkitTransition'	: 'webkitTransitionEnd',
-								'MozTransition'		: 'transitionend',
-								'OTransition'		: 'oTransitionEnd',
-								'msTransition'		: 'MSTransitionEnd',
-								'transition'		: 'transitionend'
+								'MozTransition'			: 'transitionend',
+								'OTransition'				: 'oTransitionEnd',
+								'msTransition'			: 'MSTransitionEnd',
+								'transition'				: 'transitionend'
 							},
 							// init bookBlock!
 							bb					:	$( '#bb-bookblock' ).bookblock( {
-								speed 		: 700,
-								easing		: 'ease-out',
+								speed 			: 700,
+								easing			: 'ease-out',
 								perspective	: 1500,
 								shadowSides	: 0.8,
 								shadowFlip	: 0.7
 							} ),
 							transitionProperty	:	{
-								'-webkit-transition': '-webkit-transform 300ms ease-in-out',
-								'-moz-transition': '-moz-transform 300ms ease-in-out',
-								'-o-transition': '-o-transform 300ms ease-in-out',
-								'-ms-transition': '-ms-transform 300ms ease-in-out'
+								'-webkit-transition'	: '-webkit-transform 300ms ease-in-out',
+								'-moz-transition'			: '-moz-transform 300ms ease-in-out',
+								'-o-transition'				: '-o-transform 300ms ease-in-out',
+								'-ms-transition'			: '-ms-transform 300ms ease-in-out'
 							}
 						},
-						init		= function() {
+						init = function() {
 
 							initEvents();
 
 						},
-						initEvents	= function() {
+						initEvents = function() {
 
 							config.$navNext.on( 'click', function() {
 
@@ -179,6 +179,7 @@
 										config.bb.next();
 										
 									} );
+
 									return false;
 
 								},
@@ -189,6 +190,7 @@
 										config.bb.prev();
 										
 									} );
+
 									return false;
 
 								}
@@ -198,8 +200,8 @@
 							// folder
 							config.$folderOpen.on( 'click', function() {
 								
-								var $folder	= $( this ).closest( 'div.folder' ),
-									open	= $folder.data( 'isOpen' );
+								var $folder = $( this ).closest( 'div.folder' ),
+										open = $folder.data( 'isOpen' );
 
 								if( config.bb.isActive() ) return false;
 
@@ -215,8 +217,8 @@
 
 							config.$folderClose.on( 'click', function() {
 								
-								var $folder	= $( this ).closest( 'div.folder' ),
-									open	= $folder.data( 'isOpen' );
+								var $folder = $( this ).closest( 'div.folder' ),
+										open = $folder.data( 'isOpen' );
 
 								if( config.bb.isActive() ) return false;
 								
@@ -233,11 +235,12 @@
 						},
 						openFolder	= function() {
 
-							var $fold 				= config.$folder.find( 'div.folder-fold' ).css( config.transitionProperty ),
-								$inner				= config.$folder.find( 'div.folder-inner' ),
-								transEndEventName	= config.transEndEventNames[ Modernizr.prefixed( 'transition' ) ];
+							var $fold = config.$folder.find( 'div.folder-fold' ).css( config.transitionProperty ),
+									$inner = config.$folder.find( 'div.folder-inner' ),
+									transEndEventName = config.transEndEventNames[ Modernizr.prefixed( 'transition' ) ];
 
 							setTimeout( function() {
+
 								$fold.css( 'transform', 'rotateY(180deg)' ).on( transEndEventName , function() {
 
 									$fold.off( transEndEventName ).css( 'z-index', 1 ).css( 'transition', 'none' ).css( 'transform', 'rotateY(-180deg)' );
@@ -253,9 +256,9 @@
 						},
 						closeFolder	= function() {
 
-							var $fold 				= config.$folder.find( 'div.folder-fold' ),
-								$inner				= config.$folder.find( 'div.folder-inner' ),
-								transEndEventName	= config.transEndEventNames[ Modernizr.prefixed( 'transition' ) ];
+							var $fold = config.$folder.find( 'div.folder-fold' ),
+									$inner = config.$folder.find( 'div.folder-inner' ),
+									transEndEventName = config.transEndEventNames[ Modernizr.prefixed( 'transition' ) ];
 
 							$inner.css( 'transform', 'translateX(0px)' ).on( transEndEventName , function() {
 
@@ -284,8 +287,8 @@
 						},
 						checkFolder	= function( callback ) {
 
-							var $fold				= config.$folder.find( 'div.folder-fold' ),
-								transEndEventName	= config.transEndEventNames[ Modernizr.prefixed( 'transition' ) ];
+							var $fold = config.$folder.find( 'div.folder-fold' ),
+									transEndEventName = config.transEndEventNames[ Modernizr.prefixed( 'transition' ) ];
 
 							if( config.$folder.data( 'isOpen' ) ) {
 

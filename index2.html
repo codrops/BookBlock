@@ -136,13 +136,13 @@
 
 							$grid.find( 'div.bb-bookblock' ).each( function( i ) {
 								
-								var $bookBlock		=	$( this ),
-									$nav			=	$bookBlock.next().children( 'span' ),
-									bb				=	$bookBlock.bookblock( {
-										perspective	: 900,
-										speed		: 600,
-										shadows		: false
-									} );
+								var $bookBlock =	$( this ),
+										$nav =	$bookBlock.next().children( 'span' ),
+										bb =	$bookBlock.bookblock( {
+											perspective	: 900,
+											speed				: 600,
+											shadows			: false
+										} );
 									
 								// add navigation events
 								$nav.each( function( i ) {
@@ -164,13 +164,13 @@
 								// add swipe events
 								$bookBlock.children().on( {
 
-									'swipeleft' : function( event ) {
+									'swipeleft'		: function( event ) {
 									
 										bb.next();
 										return false;
 
 									},
-									'swiperight' : function( event ) {
+									'swiperight'	: function( event ) {
 									
 										bb.prev();
 										return false;
