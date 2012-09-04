@@ -69,18 +69,17 @@
 			// current item.
 			this.current = 0;
 			// show first item.
-			this.$current = this.$items.eq( this.current );
-			this.$current.show();
+			this.$current = this.$items.eq( this.current ).show();
 			// get width of this.$el
 			// this will be necessary to create the flipping layout.
 			this.elWidth = this.$el.width();
 			// https://github.com/twitter/bootstrap/issues/2870.
 			var transEndEventNames = {
-				'WebkitTransition'	: 'webkitTransitionEnd',
-				'MozTransition'		: 'transitionend',
-				'OTransition'		: 'oTransitionEnd',
-				'msTransition'		: 'MSTransitionEnd',
-				'transition'		: 'transitionend'
+				'WebkitTransition' : 'webkitTransitionEnd',
+				'MozTransition' : 'transitionend',
+				'OTransition' : 'oTransitionEnd',
+				'msTransition' : 'MSTransitionEnd',
+				'transition' : 'transitionend'
 			};
 			this.transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ];
 			// support (3dtransforms && transitions).
