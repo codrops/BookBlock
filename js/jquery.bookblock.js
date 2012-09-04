@@ -1,5 +1,5 @@
 /**
- * jquery.bookblock.js v1.0.0
+ * jquery.bookblock.js v1.0.1
  * http://www.codrops.com
  *
  * Licensed under the MIT license.
@@ -14,10 +14,9 @@
 	'use strict';
 
 	// global
-	var $window				= $( window ),
-		Modernizr			= window.Modernizr;
+	var Modernizr	= window.Modernizr;
 
-	$.BookBlock			= function( options, element ) {
+	$.BookBlock	= function( options, element ) {
 		
 		this.$el = $( element );
 		this._init( options );
@@ -57,7 +56,7 @@
 
 	$.BookBlock.prototype	= {
 
-		_init				: function( options ) {
+		_init	: function( options ) {
 			
 			// options.
 			this.options	= $.extend( true, {}, $.BookBlock.defaults, options );
@@ -90,13 +89,13 @@
 			this._initEvents();
 
 		},
-		_initEvents			: function() {
+		_initEvents	: function() {
 
 			var self = this;
 
 			if( this.options.nextEl !== '' ) {
 
-				$( this.options.nextEl ).on( 'click.bookblock', function( event ) {
+				$( this.options.nextEl ).on( 'click.bookblock', function() {
 
 					self._navigate( 'next' );
 					return false;
@@ -107,7 +106,7 @@
 
 			if( this.options.prevEl !== '' ) {
 
-				$( this.options.prevEl ).on( 'click.bookblock', function( event ) {
+				$( this.options.prevEl ).on( 'click.bookblock', function() {
 
 					self._navigate( 'prev' );
 					return false;
@@ -117,20 +116,20 @@
 			}
 
 		},
-		// flips next
-		next				: function() {
+		// public method: flips next
+		next	: function() {
 
 			this._navigate( 'next' );
 
 		},
-		// flips back
-		prev				: function() {
+		// public method: flips back
+		prev	: function() {
 
 			this._navigate( 'prev' );
 
 		},
-		// goes to a specific page.
-		jump				: function( page, callback ) {
+		// public method: goes to a specific page.
+		jump	: function( page ) {
 
 			page -= 1;
 
@@ -140,15 +139,16 @@
 
 			}
 
-			( page > this.current ) ? this._navigate( 'next', page, callback ) : this._navigate( 'prev', page, callback );
+			this._navigate( page > this.current ? 'next' : 'prev', page );
 
 		},
-		isActive			: function() {
+		// public method: check if isAnimating is true
+		isActive	: function() {
 
 			return this.isAnimating;
 
 		},
-		_navigate			: function( dir, page, callback ) {
+		_navigate	: function( dir, page ) {
 
 			if( this.isAnimating ) {
 
@@ -176,7 +176,7 @@
 				}
 				else {
 
-					( this.current < this.itemsCount - 1 ) ? ++this.current : this.current = 0;
+					this.current = this.current < this.itemsCount - 1 ? this.current + 1 : 0;
 
 				}
 
@@ -190,7 +190,7 @@
 				}
 				else {
 
-					( this.current > 0 ) ? --this.current : this.current = this.itemsCount - 1;
+					this.current = this.current > 0 ? this.current - 1 : this.itemsCount - 1;
 
 				}
 
@@ -207,11 +207,20 @@
 
 			}
 			
-			( !this.support ) ? this._layoutNoSupport( dir, callback ) : this._layout( dir, callback );
+			if( !this.support ) {
+				
+				this._layoutNoSupport( dir );
+
+			}
+			else {
+
+				this._layout( dir );
+
+			}
 
 		},
 		// with no support we consider no 3d transforms and transitions
-		_layoutNoSupport	: function( dir, callback ) {
+		_layoutNoSupport	: function( dir ) {
 
 			this.$items.hide();
 
@@ -222,16 +231,11 @@
 
 			var isLimit			= dir === 'next' && this.current === this.itemsCount - 1 || dir === 'prev' && this.current === 0;
 			// callback trigger
-			if( callback ) {
-				
-				callback.call();
-				
-			}
 			this.options.onEndFlip( this.current, isLimit );
 
 		},
 		// creates the necessary layout for the 3d animation, and triggers the transitions
-		_layout				: function( dir, callback ) {
+		_layout	: function( dir ) {
 
 			var self		= this,
 
@@ -273,11 +277,6 @@
 					var isLimit			= dir === 'next' && self.current === self.itemsCount - 1 || dir === 'prev' && self.current === 0;
 					
 					// callback trigger
-					if( callback ) {
-						
-						callback.call();
-						
-					}
 					self.options.onEndFlip( self.current, isLimit );
 
 				}
@@ -348,7 +347,7 @@
 
 		},
 		// adds the necessary sides (bb-page) to the layout 
-		_addSide			: function( side, dir ) {
+		_addSide	: function( side, dir ) {
 
 			var $side;
 
@@ -375,27 +374,27 @@
 				case 'middle'	:
 					/*
 					<div class="bb-page" style="z-index:3;">
-			        	<div class="bb-front">
-			        		<div class="bb-outer">
-			        			<div class="bb-content">
-			        				<div class="bb-inner">
-				        				dir==='next' ? [content of current page] : [content of next page]
-				        			</div>
-			        			</div>
-			        			<div class="bb-flipoverlay"></div>
-			        		</div>
-			        	</div>
-			        	<div class="bb-back">
-			        		<div class="bb-outer">
-			        			<div class="bb-content">
-			        				<div class="bb-inner">
-				        				dir==='next' ? [content of next page] : [content of current page]
-				        			</div>
-			        			</div>
-			        			<div class="bb-flipoverlay"></div>
-			        		</div>
-			        	</div>
-			        </div>
+						<div class="bb-front">
+							<div class="bb-outer">
+								<div class="bb-content">
+									<div class="bb-inner">
+										dir==='next' ? [content of current page] : [content of next page]
+									</div>
+								</div>
+								<div class="bb-flipoverlay"></div>
+							</div>
+						</div>
+						<div class="bb-back">
+							<div class="bb-outer">
+								<div class="bb-content">
+									<div class="bb-inner">
+										dir==='next' ? [content of next page] : [content of current page]
+									</div>
+								</div>
+								<div class="bb-flipoverlay"></div>
+							</div>
+						</div>
+					</div>
 					*/
 					$side = $( '<div class="bb-page"><div class="bb-front"><div class="bb-outer"><div class="bb-content" style="left:' + ( - this.elWidth / 2 ) + 'px;width:' + this.elWidth + 'px"><div class="bb-inner">' + ( dir==='next' ? this.$current.html() : this.$nextItem.html() ) + '</div></div><div class="bb-flipoverlay"></div></div></div><div class="bb-back"><div class="bb-outer"><div class="bb-content" style="width:' + this.elWidth + 'px"><div class="bb-inner">' + ( dir==='next' ? this.$nextItem.html() : this.$current.html() ) + '</div></div><div class="bb-flipoverlay"></div></div></div></div>' ).css( 'z-index', 103 );
 					break;
@@ -403,17 +402,17 @@
 				case 'right'	:
 					/*
 					<div class="bb-page" style="z-index:1;">
-			        	<div class="bb-front">
-			        		<div class="bb-outer">
-			        			<div class="bb-content">
-			        				<div class="bb-inner">
-				        				dir==='next' ? [content of next page] : [content of current page]
-				        			</div>
-			        			</div>
-			        			<div class="bb-overlay"></div>
-			        		</div>
-			        	</div>
-			        </div>
+						<div class="bb-front">
+							<div class="bb-outer">
+								<div class="bb-content">
+									<div class="bb-inner">
+										dir==='next' ? [content of next page] : [content of current page]
+									</div>
+								</div>
+								<div class="bb-overlay"></div>
+							</div>
+						</div>
+					</div>
 					*/
 					$side = $( '<div class="bb-page"><div class="bb-front"><div class="bb-outer"><div class="bb-content" style="left:' + ( - this.elWidth / 2 ) + 'px;width:' + this.elWidth + 'px"><div class="bb-inner">' + ( dir==='next' ? this.$nextItem.html() : this.$current.html() ) + '</div></div><div class="bb-overlay"></div></div></div></div>' ).css( 'z-index', 101 );
 					break;
@@ -426,7 +425,7 @@
 
 	};
 	
-	var logError		= function( message ) {
+	var logError	= function( message ) {
 
 		if ( window.console ) {
 

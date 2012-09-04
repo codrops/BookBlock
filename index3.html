@@ -114,7 +114,6 @@
 							$bookBlock			:	$( '#bb-bookblock' ),
 							$navNext			:	$( '#bb-nav-next' ),
 							$navPrev			:	$( '#bb-nav-prev' ),
-							$navJump			:	$( '#bb-nav-jump' ),
 							$folder				:	$( '#folder' ),
 							$folderOpen			:	$( '#folder > div.folder-cover > span' ),
 							$folderClose		:	$( '#folder > div.folder-inner > a' ),
@@ -164,17 +163,6 @@
 								checkFolder( function() {
 
 									config.bb.prev();
-									
-								} );
-								return false;
-
-							} );
-
-							config.$navJump.on( 'click', function() {
-								
-								checkFolder( function() {
-
-									config.bb.jump(4);
 									
 								} );
 								return false;
