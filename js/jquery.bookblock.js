@@ -26,32 +26,32 @@
 	// the options
 	$.BookBlock.defaults = {
 		// speed for the flip transition in ms.
-		speed		: 1000,
+		speed : 1000,
 		// easing for the flip transition.
-		easing		: 'ease-in-out',
+		easing : 'ease-in-out',
 		// if set to true, both the flipping page and the sides will have an overlay to simulate shadows
-		shadows		: true,
+		shadows : true,
 		// opacity value for the "shadow" on both sides (when the flipping page is over it).
 		// value : 0.1 - 1
-		shadowSides	: 0.2,
+		shadowSides : 0.2,
 		// opacity value for the "shadow" on the flipping page (while it is flipping).
 		// value : 0.1 - 1
-		shadowFlip	: 0.1,
+		shadowFlip : 0.1,
 		// perspective value
-		perspective	: 1300,
+		perspective : 1300,
 		// if we should show the first item after reaching the end.
-		circular	: false,
+		circular : false,
 		// if we want to specify a selector that triggers the next() function. example: '#bb-nav-next'.
-		nextEl		: '',
+		nextEl : '',
 		// if we want to specify a selector that triggers the prev() function.
-		prevEl		: '',
+		prevEl : '',
 		// callback after the flip transition.
 		// page is the current item's index.
 		// isLimit is true if the current page is the last one (or the first one).
-		onEndFlip	: function( page, isLimit ) { return false; },
+		onEndFlip : function( page, isLimit ) { return false; },
 		// callback before the flip transition.
 		// page is the current item's index.
-		onBeforeFlip: function( page ) { return false; }
+		onBeforeFlip : function( page ) { return false; }
 	};
 
 	$.BookBlock.prototype = {
