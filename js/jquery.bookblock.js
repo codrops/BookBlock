@@ -1,5 +1,5 @@
 /**
- * jquery.bookblock.js v1.0.1
+ * jquery.bookblock.js v1.0.2
  * http://www.codrops.com
  *
  * Licensed under the MIT license.
@@ -45,6 +45,10 @@
 		nextEl : '',
 		// if we want to specify a selector that triggers the prev() function.
 		prevEl : '',
+		// autoplay. If true it overwrites the circular option to true!
+		autoplay : false,
+		// time (ms) between page switch, if autoplay is true. 
+		interval : 3000,
 		// callback after the flip transition.
 		// page is the current item's index.
 		// isLimit is true if the current page is the last one (or the first one).
@@ -87,6 +91,13 @@
 
 			this._initEvents();
 
+			if( this.options.autoplay ) {
+			
+				this.options.circular = true;
+				this._startSlideshow();
+			
+			}
+
 		},
 		_initEvents : function() {
 
@@ -96,6 +107,7 @@
 
 				$( this.options.nextEl ).on( 'click.bookblock', function() {
 
+					self._stopSlideshow();
 					self._navigate( 'next' );
 					return false;
 
@@ -107,6 +119,7 @@
 
 				$( this.options.prevEl ).on( 'click.bookblock', function() {
 
+					self._stopSlideshow();
 					self._navigate( 'prev' );
 					return false;
 
@@ -118,12 +131,14 @@
 		// public method: flips next
 		next : function() {
 
+			this._stopSlideshow();
 			this._navigate( 'next' );
 
 		},
 		// public method: flips back
 		prev : function() {
 
+			this._stopSlideshow();
 			this._navigate( 'prev' );
 
 		},
@@ -138,6 +153,7 @@
 
 			}
 
+			this._stopSlideshow();
 			this._navigate( page > this.current ? 'next' : 'prev', page );
 
 		},
@@ -419,6 +435,33 @@
 			}
 
 			return $side;
+
+		},
+		_startSlideshow		: function() {
+		
+			var self = this;
+			
+			this.slideshow = setTimeout( function() {
+				
+				self._navigate( 'next' );
+				
+				if( self.options.autoplay ) {
+				
+					self._startSlideshow();
+				
+				}
+			
+			}, this.options.interval );
+		
+		},
+		_stopSlideshow		: function() {
+
+			if( this.options.autoplay ) {
+			
+				clearTimeout( this.slideshow );
+				this.options.autoplay = false;
+			
+			}
 
 		}
 
