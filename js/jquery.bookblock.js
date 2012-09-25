@@ -45,6 +45,8 @@
 		nextEl : '',
 		// if we want to specify a selector that triggers the prev() function.
 		prevEl : '',
+		//if we want to navigate the slides with the keyboard arrows
+		keyboard: true,
 		// callback after the flip transition.
 		// page is the current item's index.
 		// isLimit is true if the current page is the last one (or the first one).
@@ -112,6 +114,22 @@
 
 				} );
 
+			}
+			if( this.options.keyboard == true){
+			$(document).keydown(function (e) {
+			      var keyCode = e.keyCode || e.which;
+			      var arrow = {left: 37, up: 38, right: 39, down: 40 };
+
+			      switch (keyCode) {
+			        case arrow.left:
+			          self._navigate( 'prev' );
+			        break;
+			        case arrow.right:
+			          self._navigate( 'next' );B
+			        break;
+			    
+			      }
+			    });
 			}
 
 		},
