@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /**
  * jquery.bookblock.js v1.0.2
  * http://www.codrops.com
