@@ -1,5 +1,5 @@
 /**
- * jquery.bookblock.js v1.0.2
+ * jquery.bookblock.js v1.0.3
  * http://www.codrops.com
  *
  * Licensed under the MIT license.
@@ -8,14 +8,55 @@
  * Copyright 2012, Codrops
  * http://www.codrops.com
  */
-
 ;
 (function($, window, undefined) {
 
 	'use strict';
 
+	/*
+	* debouncedresize: special jQuery event that happens once after a window resize
+	*
+	* latest version and complete README available on Github:
+	* https://github.com/louisremi/jquery-smartresize/blob/master/jquery.debouncedresize.js
+	*
+	* Copyright 2011 @louis_remi
+	* Licensed under the MIT license.
+	*/
+	var $event = $.event,
+	$special,
+	resizeTimeout;
+
+	$special = $event.special.debouncedresize = {
+		setup: function() {
+			$( this ).on( "resize", $special.handler );
+		},
+		teardown: function() {
+			$( this ).off( "resize", $special.handler );
+		},
+		handler: function( event, execAsap ) {
+			// Save the context
+			var context = this,
+				args = arguments,
+				dispatch = function() {
+					// set correct event type
+					event.type = "debouncedresize";
+					$event.dispatch.apply( context, args );
+				};
+
+			if ( resizeTimeout ) {
+				clearTimeout( resizeTimeout );
+			}
+
+			execAsap ?
+				dispatch() :
+				resizeTimeout = setTimeout( dispatch, $special.threshold );
+		},
+		threshold: 150
+	};
+
 	// global
-	var Modernizr = window.Modernizr;
+	var $window = $(window),
+		Modernizr = window.Modernizr;
 
 	$.BookBlock = function(options, element) {
 
@@ -26,41 +67,42 @@
 
 	// the options
 	$.BookBlock.defaults = {
-		// speed for the flip transition in ms.
-		speed: 1000,
-		// easing for the flip transition.
-		easing: 'ease-in-out',
+		// speed for the flip transition in ms
+		speed : 1000,
+		// easing for the flip transition
+		easing : 'ease-in-out',
 		// if set to true, both the flipping page and the sides will have an overlay to simulate shadows
-		shadows: true,
-		// opacity value for the "shadow" on both sides (when the flipping page is over it).
+		shadows : true,
+		// opacity value for the "shadow" on both sides (when the flipping page is over it)
 		// value : 0.1 - 1
-		shadowSides: 0.2,
-		// opacity value for the "shadow" on the flipping page (while it is flipping).
+		shadowSides : 0.2,
+		// opacity value for the "shadow" on the flipping page (while it is flipping)
 		// value : 0.1 - 1
-		shadowFlip: 0.1,
+		shadowFlip : 0.1,
 		// perspective value
-		perspective: 1300,
-		// if we should show the first item after reaching the end.
-		circular: false,
-		// if we want to specify a selector that triggers the next() function. example: '#bb-nav-next'.
-		nextEl: '',
-		// if we want to specify a selector that triggers the prev() function.
-		prevEl: '',
-		// autoplay. If true it overwrites the circular option to true!
-		autoplay: false,
-		// time (ms) between page switch, if autoplay is true. 
-		interval: 3000,
+		perspective : 1300,
+		// if we should show the first item after reaching the end
+		circular : false,
+		// if we want to specify a selector that triggers the next() function. example: '#bb-nav-next'
+		nextEl : '',
+		// if we want to specify a selector that triggers the prev() function
+		prevEl : '',
+		// autoplay. If true it overwrites the circular option to true
+		autoplay : false,
+		// time (ms) between page switch, if autoplay is true
+		interval : 3000,
 		//if we want to navigate the slides with the keyboard arrows
-		keyboard: true,
-		// callback after the flip transition.
-		// page is the current item's index.
-		// isLimit is true if the current page is the last one (or the first one).
-		onEndFlip: function(page, isLimit) {
+		keyboard : true,
+		// callback after the flip transition
+		// old is the index of the previous item
+		// page is the current item's index
+		// isLimit is true if the current page is the last one (or the first one)
+		onEndFlip : function(old, page, isLimit) {
 			return false;
 		},
-		// callback before the flip transition.
-		// page is the current item's index.
-		onBeforeFlip: function(page) {
+		// callback before the flip transition
+		// page is the current item's index
+		onBeforeFlip : function(page) {
 			return false;
 		}
 	};
@@ -69,22 +111,23 @@
 
 		_init: function(options) {
 
-			// options.
+			// options
 			this.options = $.extend(true, {}, $.BookBlock.defaults, options);
 			// set the perspective
 			this.$el.css('perspective', this.options.perspective);
-			// items.
+			// items
 			this.$items = this.$el.children('.bb-item');
-			// total items.
+			// total items
 			this.itemsCount = this.$items.length;
-			// current item.
+			// current item's index
 			this.current = 0;
-			// show first item.
+			// previous item's index
+			this.previous = -1;
+			// show first item
 			this.$current = this.$items.eq(this.current).show();
 			// get width of this.$el
-			// this will be necessary to create the flipping layout.
+			// this will be necessary to create the flipping layout
 			this.elWidth = this.$el.width();
-			// https://github.com/twitter/bootstrap/issues/2870.
 			var transEndEventNames = {
 				'WebkitTransition': 'webkitTransitionEnd',
 				'MozTransition': 'transitionend',
@@ -92,12 +135,12 @@
 				'msTransition': 'MSTransitionEnd',
 				'transition': 'transitionend'
 			};
-			this.transEndEventName = transEndEventNames[Modernizr.prefixed('transition')];
-			// support (3dtransforms && transitions).
+			this.transEndEventName = transEndEventNames[Modernizr.prefixed('transition')] + '.bookblock';
+			// support (3dtransforms && transitions)
 			this.support = Modernizr.csstransitions && Modernizr.csstransforms3d;
-
+			// initialize/bind some events
 			this._initEvents();
-
+			// start slideshow
 			if (this.options.autoplay) {
 
 				this.options.circular = true;
@@ -114,8 +157,7 @@
 
 				$(this.options.nextEl).on('click.bookblock', function() {
 
-					self._stopSlideshow();
-					self._navigate('next');
+					self._action('next');
 					return false;
 
 				});
@@ -126,8 +168,7 @@
 
 				$(this.options.prevEl).on('click.bookblock', function() {
 
-					self._stopSlideshow();
-					self._navigate('prev');
+					self._action('prev');
 					return false;
 
 				});
@@ -136,69 +177,43 @@
 
 			if (this.options.keyboard == true) {
 				$(document).keydown(function(e) {
-					var keyCode = e.keyCode || e.which;
-					var arrow = {
-						left: 37,
-						up: 38,
-						right: 39,
-						down: 40
-					};
+					var keyCode = e.keyCode || e.which,
+						arrow = {
+							left : 37,
+							up : 38,
+							right : 39,
+							down : 40
+						};
 
 					switch (keyCode) {
-					case arrow.left:
-						self._stopSlideshow();
-						self._navigate('prev');
-						break;
-					case arrow.right:
-						self._stopSlideshow();
-						self._navigate('next');
-						break;
+						case arrow.left:
+							self._action('prev');
+							break;
+						case arrow.right:
+							self._action('next');
+							break;
 					}
 				});
 			}
 
+			$window.on( 'debouncedresize', function() {
+							
+				// update width value
+				self.elWidth = self.$el.width();
+
+			} )
+
 		},
-		// public method: flips next
-		next: function() {
+		_action : function(dir, page) {
 
 			this._stopSlideshow();
-			this._navigate('next');
-
-		},
-		// public method: flips back
-		prev: function() {
-
-			this._stopSlideshow();
-			this._navigate('prev');
-
-		},
-		// public method: goes to a specific page.
-		jump: function(page) {
-
-			page -= 1;
-
-			if (page === this.current || page >= this.itemsCount || page < 0) {
-
-				return false;
-
-			}
-
-			this._stopSlideshow();
-			this._navigate(page > this.current ? 'next' : 'prev', page);
-
-		},
-		// public method: check if isAnimating is true
-		isActive: function() {
-
-			return this.isAnimating;
+			this._navigate(dir, page);
 
 		},
 		_navigate: function(dir, page) {
 
 			if (this.isAnimating) {
-
 				return false;
-
 			}
 
 			// callback trigger
@@ -219,6 +234,7 @@
 
 				} else {
 
+					this.previous = this.current;
 					this.current = this.current < this.itemsCount - 1 ? this.current + 1 : 0;
 
 				}
@@ -231,22 +247,15 @@
 
 				} else {
 
+					this.previous = this.current;
 					this.current = this.current > 0 ? this.current - 1 : this.itemsCount - 1;
 
 				}
 
 			}
 
-			if (!this.options.circular && this.end) {
-
-				this.$nextItem = this.$current;
-
-			} else {
-
-				this.$nextItem = this.$items.eq(this.current);
-
-			}
-
+			this.$nextItem = !this.options.circular && this.end ? this.$current : this.$items.eq(this.current);
+			
 			if (!this.support) {
 
 				this._layoutNoSupport(dir);
@@ -262,15 +271,12 @@
 		_layoutNoSupport: function(dir) {
 
 			this.$items.hide();
-
 			this.$nextItem.show();
-
 			this.end = false;
 			this.isAnimating = false;
-
 			var isLimit = dir === 'next' && this.current === this.itemsCount - 1 || dir === 'prev' && this.current === 0;
 			// callback trigger
-			this.options.onEndFlip(this.current, isLimit);
+			this.options.onEndFlip(this.previous, this.current, isLimit);
 
 		},
 		// creates the necessary layout for the 3d animation, and triggers the transitions
@@ -290,16 +296,10 @@
 				$o_middle_f = $s_middle.find('div.bb-flipoverlay:first'),
 				$o_middle_b = $s_middle.find('div.bb-flipoverlay:last'),
 				$o_right = $s_right.find('div.bb-overlay'),
-				speed = this.options.speed;
+				speed = this.end ? 400 : this.options.speed;
 
 			this.$items.hide();
 			this.$el.prepend($s_left, $s_middle, $s_right);
-
-			if (this.end) {
-
-				speed = 400;
-
-			}
 
 			$s_middle.css({
 				transition: 'all ' + speed + 'ms ' + this.options.easing
@@ -316,18 +316,14 @@
 					var isLimit = dir === 'next' && self.current === self.itemsCount - 1 || dir === 'prev' && self.current === 0;
 
 					// callback trigger
-					self.options.onEndFlip(self.current, isLimit);
+					self.options.onEndFlip(self.previous, self.current, isLimit);
 
 				}
 
 			});
 
 			if (dir === 'prev') {
-
-				$s_middle.css({
-					transform: 'rotateY(-180deg)'
-				});
-
+				$s_middle.css({ transform: 'rotateY(-180deg)' });
 			}
 
 			// overlays
@@ -367,36 +363,32 @@
 
 			setTimeout(function() {
 
-				var style = (dir === 'next') ? 'rotateY(-180deg)' : 'rotateY(0deg)';
+				var style = dir === 'next' ? 'rotateY(-180deg)' : 'rotateY(0deg)';
 
 				if (self.end) {
-
-					// first && last pages lift up 15 deg when we can't go further. 
-					style = (dir === 'next') ? 'rotateY(-15deg)' : 'rotateY(-165deg)';
-
+					// first && last pages lift up 15 deg when we can't go further
+					style = dir === 'next' ? 'rotateY(-15deg)' : 'rotateY(-165deg)';
 				}
 
-				$s_middle.css({
-					transform: style
-				});
+				$s_middle.css({transform: style});
 
 				// overlays
 				if (self.options.shadows && !self.end) {
 
 					$o_middle_f.css({
-						opacity: (dir === 'next') ? self.options.shadowFlip : 0
+						opacity: dir === 'next' ? self.options.shadowFlip : 0
 					});
 
 					$o_middle_b.css({
-						opacity: (dir === 'next') ? 0 : self.options.shadowFlip
+						opacity: dir === 'next' ? 0 : self.options.shadowFlip
 					});
 
 					$o_left.css({
-						opacity: (dir === 'next') ? self.options.shadowSides : 0
+						opacity: dir === 'next' ? self.options.shadowSides : 0
 					});
 
 					$o_right.css({
-						opacity: (dir === 'next') ? 0 : self.options.shadowSides
+						opacity: dir === 'next' ? 0 : self.options.shadowSides
 					});
 
 				}
@@ -413,7 +405,7 @@
 			switch (side) {
 
 			case 'left':
-/*
+					/*
 					<div class="bb-page" style="z-index:2;">
 						<div class="bb-back">
 							<div class="bb-outer">
@@ -431,7 +423,7 @@
 				break;
 
 			case 'middle':
-/*
+					/*
 					<div class="bb-page" style="z-index:3;">
 						<div class="bb-front">
 							<div class="bb-outer">
@@ -459,7 +451,7 @@
 				break;
 
 			case 'right':
-/*
+					/*
 					<div class="bb-page" style="z-index:1;">
 						<div class="bb-front">
 							<div class="bb-outer">
@@ -490,9 +482,7 @@
 				self._navigate('next');
 
 				if (self.options.autoplay) {
-
 					self._startSlideshow();
-
 				}
 
 			}, this.options.interval);
@@ -507,19 +497,49 @@
 
 			}
 
+		},
+		// public method: flips next
+		next: function() {
+			this._action('next');
+		},
+		// public method: flips back
+		prev: function() {
+			this._action('prev');
+		},
+		// public method: goes to a specific page
+		jump: function(page) {
+
+			page -= 1;
+
+			if (page === this.current || page >= this.itemsCount || page < 0) {
+				return false;
+			}
+
+			this._action(page > this.current ? 'next' : 'prev', page);
+
+		},
+		// public method: check if isAnimating is true
+		isActive: function() {
+			return this.isAnimating;
+		},
+		// public method: dynamically adds new elements
+		// call this method after inserting new "bb-item" elements inside the BookBlock
+		update : function () {
+
+			var $currentItem = this.$items.eq( this.current );
+			this.$items = this.$el.children('.bb-item');
+			this.itemsCount = this.$items.length;
+			this.current = $currentItem.index();
+
 		}
 
 	};
 
 	var logError = function(message) {
-
-			if (window.console) {
-
-				window.console.error(message);
-
-			}
-
-		};
+		if (window.console) {
+			window.console.error(message);
+		}
+	};
 
 	$.fn.bookblock = function(options) {
 
