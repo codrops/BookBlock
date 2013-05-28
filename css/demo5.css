@@ -1,0 +1,106 @@
+.bb-bookblock {
+	width: 300px;
+	height: 225px;
+}
+
+ul.bb-custom-grid {
+	list-style: none;
+	margin: 0 auto 30px auto;
+	padding: 0;
+	max-width: 700px;
+}
+
+/* Micro clearfix hack by Nicolas Gallagher http://nicolasgallagher.com/micro-clearfix-hack/ */
+ul.bb-custom-grid:before,
+ul.bb-custom-grid:after {
+	content: " ";
+    display: table;
+}
+
+ul.bb-custom-grid:after {
+	clear: both;
+}
+/* end clearfix hack */
+
+ul.bb-custom-grid li {
+	float: left;
+	width: 300px;
+	height: 260px;
+	padding: 10px 20px 50px 20px;
+	background: #fff;
+	position: relative;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	margin-bottom: 20px;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+ul.bb-custom-grid li:nth-child(odd) {
+	margin-right: 20px;
+}
+
+ul.bb-custom-grid li:before,
+ul.bb-custom-grid li:after{
+	content: '';
+	position: absolute;
+	z-index: -2;
+	bottom: 15px;
+	left:  10px;
+	width: 50%;
+	height: 20%;
+	box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
+	-webkit-transform: rotate(-3deg);
+	-moz-transform: rotate(-3deg);
+	-ms-transform: rotate(-3deg);
+	-o-transform: rotate(-3deg);
+	transform: rotate(-3deg);
+}
+
+ul.bb-custom-grid li:after {
+	right: 10px;
+	left: auto;
+	-webkit-transform: rotate(3deg);
+	-moz-transform: rotate(3deg);
+	-ms-transform: rotate(3deg);
+	-o-transform: rotate(3deg);
+	transform: rotate(3deg);
+}
+
+ul.bb-custom-grid li a {
+	display: block;
+}
+
+ul.bb-custom-grid li h3 {
+	color: #9a9b92;
+	margin: 0;
+	padding: 0;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 35px;
+	letter-spacing: 1px;
+}
+
+ul.bb-custom-grid nav {
+	text-align: center;
+	margin-top: 12px;
+	padding-bottom: 5px;
+}
+
+ul.bb-custom-grid nav span {
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background: #f0f0f0;
+	margin: 3px;
+	cursor: pointer;
+	box-shadow: 
+		inset 0 1px 1px rgba(0,0,0,0.2), 
+		0 2px 1px rgba(255,255,255,0.9);
+}
+
+ul.bb-custom-grid nav span.bb-current {
+	background: #ecb700;
+}
