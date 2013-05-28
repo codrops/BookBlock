@@ -28,11 +28,16 @@ body {
 a {
 	color: #555;
 	text-decoration: none;
+	outline: none;
 }
 
 a:hover,
 a:active {
 	color: #777;
+}
+
+a img {
+	border: none;
 }
 
 /* Header Style */
@@ -221,6 +226,11 @@ a:active {
 	color: #fff;
 }
 
+.demo-2 .codrops-top a:hover {
+	background: rgba(255,255,255,0.3);
+	color: #333;
+}
+
 .demo-3 body {
 	color: #87968e;
 	background: #fff2e3;
@@ -238,6 +248,7 @@ a:active {
 .demo-4 body {
 	color: #999;
 	background: #fff2e3;
+	overflow: hidden;
 }
 
 .demo-4 a {
