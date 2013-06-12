@@ -116,9 +116,9 @@
 		onEndFlip : function(old, page, isLimit) { return false; },
 		// callback before the flip transition
 		// page is the current item´s index
-		onBeforeFlip : function(page) { return false; }
+		onBeforeFlip : function(page) { return false; },
 		//page number to open book from
-		firstPageNumber:0,
+		firstPageNumber:0
 	};
 
 	$.BookBlock.prototype = {
