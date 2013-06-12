@@ -117,6 +117,8 @@
 		// callback before the flip transition
 		// page is the current item´s index
 		onBeforeFlip : function(page) { return false; }
+		//page number to open book from
+		firstPageNumber:0,
 	};
 
 	$.BookBlock.prototype = {
@@ -130,7 +132,7 @@
 			// total items
 			this.itemsCount = this.$items.length;
 			// current item´s index
-			this.current = 0;
+			this.current = (this.options.firstPageNumber > this.itemsCount ) ? 0 : this.options.firstPageNumber;
 			// previous item´s index
 			this.previous = -1;
 			// show first item
