@@ -126,7 +126,9 @@
 		//animation to hide  items in case default animation not supported
 		noSupportHide : function (items){
 			items.hide();
-		}
+		},
+		//to define behavior as not supported default animation
+		noSupport : false
 	};
 
 	$.BookBlock.prototype = {
@@ -225,7 +227,7 @@
 
 			this.$nextItem = !this.options.circular && this.end ? this.$current : this.$items.eq( this.current );
 			
-			if ( !this.support ) {
+			if ( !this.support || this.options.noSupport ) {
 				this._layoutNoSupport( dir );
 			} else {
 				this._layout( dir );
