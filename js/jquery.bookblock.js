@@ -118,7 +118,15 @@
 		// page is the current item´s index
 		onBeforeFlip : function(page) { return false; },
 		//page number to open book from
-		firstPageNumber:0
+		startPageNumber:0,
+		//animation to show next item in case default animation not supported
+		noSupportShow : function (nextItem){
+			nextItem.show();
+		},
+		//animation to hide  items in case default animation not supported
+		noSupportHide : function (items){
+			items.hide();
+		}
 	};
 
 	$.BookBlock.prototype = {
@@ -132,7 +140,7 @@
 			// total items
 			this.itemsCount = this.$items.length;
 			// current item´s index
-			this.current = (this.options.firstPageNumber > this.itemsCount ) ? 0 : this.options.firstPageNumber;
+			this.current = (this.options.startPageNumber > this.itemsCount ) ? 0 : this.options.startPageNumber;
 			// previous item´s index
 			this.previous = -1;
 			// show first item
@@ -225,8 +233,8 @@
 
 		},
 		_layoutNoSupport : function(dir) {
-			this.$items.hide();
-			this.$nextItem.show();
+			this.options.noSupportHide(this.$items);
+			this.options.noSupportShow(this.$nextItem);
 			this.end = false;
 			this.isAnimating = false;
 			var isLimit = dir === 'next' && this.current === this.itemsCount - 1 || dir === 'prev' && this.current === 0;
