@@ -83,6 +83,8 @@
 
 	// the options
 	$.BookBlock.defaults = {
+		// page to start on
+		startPage : 1,
 		// vertical or horizontal flip
 		orientation : 'vertical',
 		// ltr (left to right) or rtl (right to left)
@@ -130,7 +132,12 @@
 			// total items
 			this.itemsCount = this.$items.length;
 			// current item´s index
-			this.current = 0;
+			if ( (this.options.startPage > 0) && (this.options.startPage <= this.itemsCount) ) {
+				this.current = (this.options.startPage - 1);
+			} else {
+				logError('startPage option is out of range');
+				this.current = 0;
+			}
 			// previous item´s index
 			this.previous = -1;
 			// show first item

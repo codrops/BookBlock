@@ -49,6 +49,8 @@
 
 	BookBlock.prototype = {
 		defaults : {
+			// page to start on
+			startPage : 1,
 			// vertical or horizontal flip
 			orientation : 'vertical',
 			// ltr (left to right) or rtl (right to left)
@@ -92,7 +94,11 @@
 			// total items
 			this.itemsCount = this.items.length;
 			// current item´s index
-			this.currentIdx = 0;
+			if ( (this.options.startPage > 0) && (this.options.startPage <= this.itemsCount) ) {
+				this.currentIdx = (this.options.startPage - 1);
+			} else {
+				this.currentIdx = 0;
+			}
 			// previous item´s index
 			this.previous = -1;
 			// show first item
