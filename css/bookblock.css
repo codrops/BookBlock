@@ -52,6 +52,12 @@
 	background: #fff;
 }
 
+.bb-outer {
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
 .bb-vertical .bb-content {
 	width: 200%;
 }
