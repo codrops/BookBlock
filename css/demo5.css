@@ -8,6 +8,7 @@ ul.bb-custom-grid {
 	margin: 0 auto 30px auto;
 	padding: 0;
 	max-width: 700px;
+	display: block;
 }
 
 /* Micro clearfix hack by Nicolas Gallagher http://nicolasgallagher.com/micro-clearfix-hack/ */
@@ -29,8 +30,6 @@ ul.bb-custom-grid li {
 	padding: 10px 20px 50px 20px;
 	background: #fff;
 	position: relative;
-	-webkit-box-sizing: content-box;
-	-moz-box-sizing: content-box;
 	box-sizing: content-box;
 	margin-bottom: 20px;
 	box-shadow: 0 1px 2px rgba(0,0,0,0.2);
@@ -61,9 +60,6 @@ ul.bb-custom-grid li:after {
 	right: 10px;
 	left: auto;
 	-webkit-transform: rotate(3deg);
-	-moz-transform: rotate(3deg);
-	-ms-transform: rotate(3deg);
-	-o-transform: rotate(3deg);
 	transform: rotate(3deg);
 }
 
@@ -96,9 +92,7 @@ ul.bb-custom-grid nav span {
 	background: #f0f0f0;
 	margin: 3px;
 	cursor: pointer;
-	box-shadow: 
-		inset 0 1px 1px rgba(0,0,0,0.2), 
-		0 2px 1px rgba(255,255,255,0.9);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.2), 0 2px 1px rgba(255,255,255,0.9);
 }
 
 ul.bb-custom-grid nav span.bb-current {
