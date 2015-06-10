@@ -19,7 +19,6 @@
 	width: 100%;
 	height: 100%;
 	-webkit-perspective: 2000px;
-	-moz-perspective: 2000px;
 	perspective: 2000px;
 }
 
@@ -28,6 +27,7 @@
 	float: left;
 	height: 100%;
 	overflow: hidden;
+	background: #fff;
 	/* Centering with flexbox */
 	display: -webkit-box;
 	display: -moz-box;
@@ -52,6 +52,7 @@
 	line-height: 1.3;
 	margin: 0;
 	font-weight: 300;
+	background: #fff;
 }
 
 .bb-custom-firstpage h1 span {
@@ -134,8 +135,6 @@
 .bb-custom-icon-arrow-left:before,
 .bb-custom-icon-first:before {
 	-webkit-transform: rotate(180deg);
-	-moz-transform: rotate(180deg);
-	-ms-transform: rotate(180deg);
 	transform: rotate(180deg);
 }
 
