@@ -427,7 +427,7 @@
 		// public method: dynamically adds new elements
 		// call this method after inserting new "bb-item" elements inside the BookBlock
 		update : function () {
-			var currentItem = this.items[ this.current ];
+			var currentItem = this.items[ this.currentIdx ];
 			this.items = Array.prototype.slice.call( this.el.querySelectorAll( '.bb-item' ) );
 			this.itemsCount = this.items.length;
 			this.currentIdx = this.items.indexOf( currentItem );
