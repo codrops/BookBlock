@@ -77,6 +77,8 @@
 			autoplay : false,
 			// time (ms) between page switch, if autoplay is true
 			interval : 3000,
+			// 3d perspective
+			perspective : 1200,
 			// callback after the flip transition
 			// old is the index of the previous item
 			// page is the current item´s index
@@ -89,6 +91,7 @@
 		_init : function() {
 			// orientation class
 			this.el.className += ' bb-' + this.options.orientation;
+			this.el.style.perspective = this.options.perspective + 'px';
 			// items
 			this.items = Array.prototype.slice.call( this.el.querySelectorAll( '.bb-item' ) );
 			// total items
