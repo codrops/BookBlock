@@ -12,7 +12,7 @@ License: http://tympanus.net/codrops/licensing/
 
 ### BookBlock Configuration Options
 
-```
+```js
 // page to start on
 startPage : 1,
 // vertical or horizontal flip
