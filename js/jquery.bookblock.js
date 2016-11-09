@@ -261,8 +261,10 @@
 			$s_middle.css({
 				transitionDuration: speed + 'ms',
 				transitionTimingFunction : this.options.easing
-			}).on( this.transEndEventName, function( event ) {
-				if ( $( event.target ).hasClass( 'bb-page' ) ) {
+			});
+
+			setTimeout( function() {
+				if ( $s_middle.hasClass( 'bb-page' ) ) {
 					self.$el.children( '.bb-page' ).remove();
 					self.$nextItem.show();
 					self.end = false;
@@ -271,7 +273,7 @@
 					// callback trigger
 					self.options.onEndFlip( self.previous, self.current, isLimit );
 				}
-			});
+			}, speed);
 
 			if ( dir === 'prev' ) {
 				$s_middle.addClass( 'bb-flip-initial' );
