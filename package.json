@@ -1,0 +1,10 @@
+{
+  "name": "opensoft/BookBlock",
+  "version": "2.0.2",
+  "description": "A jQuery plugin that will create a booklet-like component that let's you navigate through its items by flipping the pages.",
+  "license": "http://tympanus.net/codrops/licensing/",
+  "dependencies": {
+    "modernizr": "git@github.com:Modernizr/Modernizr.git#2.6.2",
+    "jquerypp": "git@github.com:bitovi/jquerypp.git#1.0.1"
+  }
+}
